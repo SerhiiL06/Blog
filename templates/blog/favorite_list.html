@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{%static 'css/stored-posts.css'%}">{% endblock css %}
+
+
+
+{% block content %}
+<section id="stored-posts">
+    <ul>
+        {%for object in object_list%}
+        <li>
+            <a href="{%url 'blog:detail' object.post.slug%}">{{object.post.title}}</a>
+        </li>
+        {% endfor %}
+        
+    </ul>
+</section>
+
+{% endblock content %}

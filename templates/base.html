@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{%static 'css/app.css'%}">
+    {% block css %}{% endblock css %}
+</head>
+<body> 
+<header id="main-navigation">
+    <h1><a href="{%url 'blog:index'%}">Serhii Blog</a></h1>
+    <nav>
+        <a href="{%url 'blog:posts'%}">All posts</a>
+        <a href="{% url 'blog:search'%}">Search</a>
+    </nav>
+    <nav>
+        {%if user.is_authenticated%}
+            {% if user.is_verification %}
+                <a href="{% url 'blog:create' %}">Create Post</a>
+                <a href="{%url 'blog:my-posts'%}">My posts</a>
+            {% endif %}
+        <a href="{% url "users:profile" user.id%}">Profile</a>
+        <a href="{%url 'blog:favorite_list'%}">Favorite List</a>
+        <a href="{%url 'users:logout'%}">Logout</a>
+        {%else%}
+        <a href="{%url 'users:login'%}">Login</a>
+        {% endif %}
+    </nav>
+</header>
+{% block content %}
+
+   
+{% endblock content %}
+</body>
+</html>

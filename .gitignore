@@ -1,0 +1,8 @@
+.idea
+.env
+dump.rdb
+Pipfile
+Pipfile.lock
+media
+static/img
+key.txt

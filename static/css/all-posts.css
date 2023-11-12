@@ -1,0 +1,74 @@
+body {
+  background-color: #e7e7e7;
+}
+
+#main-navigation {
+  background-color: #390281;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+#all-posts {
+  margin: 7rem auto;
+  width: 90%;
+  max-width: 60rem;
+}
+
+#all-posts h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2e2e2e;
+  margin: 3rem 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1.5rem;
+}
+
+.post img {
+  width: 7rem;
+  height: 7rem;
+}
+
+.post a {
+  height: 22rem;
+  transform-origin: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  background-color: white;
+}
+
+/* Додайте CSS для пагінації */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.step-links {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.step-links a {
+  text-decoration: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.step-links .current {
+  font-weight: bold;
+}
+
+/* Стилі для посилань "previous" та "next" */
+.step-links a:hover {
+  background-color: #0056b3;
+}

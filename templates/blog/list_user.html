@@ -1,0 +1,15 @@
+{{title}}
+{% block content %}
+<ul>
+    {% for object in object_list  %}
+    <li>
+        <a href="{{object.get_absolute_url}}">{{object.title}}</a>
+        author is: {{object.author}}
+        <a href="{%url 'blog:update' object.id%}"><button>Update</button></a>
+        <a href="{%url 'blog:remove_post' object.id%}"><button>Delete</button></a>
+        
+    </li>
+    {% endfor %}
+</ul>
+<p>In total: {{total_posts}}</p>
+{% endblock content %}

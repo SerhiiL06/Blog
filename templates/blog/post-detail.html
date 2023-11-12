@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+{% block title %}{{title}}{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{%static 'css/post-detail.css'%}">
+{% endblock css %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages  %}
+    {{message}}
+    {% endfor %}
+{% endif %}
+<section id='summary'>
+<h2>{{object.title}}</h2>
+
+<div>
+    {% for tag in object.tag.all %} 
+    <span class='tag'><a href="{% url 'blog:tag-posts' tag.id%}">{{tag.caption}}</a></span> 
+    {% endfor %}
+</div>
+
+
+<div id='read-later' class="mt-5">
+    {% if not object.in_list %}
+        <a href="{%url 'blog:favorite' object.id%}"><button>Read Later</button></a>
+    {% else %}
+        <a href="{%url 'blog:favorite' object.id%}"><button>Delete from list</button></a>
+    {% endif %}
+   
+    
+</div>
+<article>
+{%if object.image%}
+<img src="{{object.image.url}}" alt="">
+{% endif %}
+<address><h4>Author: {{object.author|title}}</h4></address>
+<div>
+    <p>Last update: {{object.last_update|naturaltime}}</p>
+</div>
+
+</article>
+
+</section>
+
+
+
+
+<main>
+    <p>
+        {{object.text|linebreaks}}
+    </p>
+    
+</main>
+
+{% if comments %}
+<section id="comments"> 
+    <ul>
+
+    <h4>Total comments: {{comments.count}}</h4>
+        
+    {% for comment in comments  %}
+    <li><h2>{{comment.text}}</h2></li>
+    <li><h4>{{comment.author}} {{comment.created_date}}</h4></li>
+    <li><a href="{%url 'blog:delete_comment' comment.id%}"><button>Delete comment</button></a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <h2 class='text-center'>No comments, be first!</h2>
+
+
+</section>
+{% endif %}
+
+<div>
+    <form id="comment-form" action={%url 'blog:detail' object.slug%} method="post">
+        {% csrf_token %}
+        {% for field in comment_form  %}
+        <div class='form-control {% if field.errors %}invalid{% endif %}'>
+           {{field.label_tag}}
+            {{field}} 
+            {{field.error}}
+        </div> 
+        {% endfor %} 
+        <button type='submit'>Send comment</button>
+    </form>
+</div>
+
+
+{% endblock content %}

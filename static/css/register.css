@@ -1,0 +1,54 @@
+/* Стилі для контейнера форми реєстрації */
+.registration-container {
+    max-width: 400px;
+    margin: 80px auto 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Стилі для заголовка "Реєстрація" */
+.registration-container h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Стилі для форми та груп полів вводу */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Стилі для кнопки "Зареєструватися" */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}

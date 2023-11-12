@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{%static 'css/register.css'%}">
+<link rel="stylesheet" href="{%static 'css/post-detail.css'%}">
+{% endblock css %}
+
+
+{% block content %}
+{% if messages or form.non_fields_errors %}
+    {% if messages %}
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+        {% else %}
+        {{form.non_fields_errors}}
+    {% endif %}    
+{% endif %}
+<div class="registration-container mt-5">
+        <h2>Реєстрація</h2>
+        <form action="{%url 'users:register'%}", method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{form.username.id_for_label}}">Нікнейм:</label>
+                {{ form.username }}
+            </div>
+             <div class="form-group">
+                <label for="{{form.first_name.id_for_label}}">Ім'я:</label>
+                {{ form.first_name }}
+            </div>
+             <div class="form-group">
+                <label for="{{form.last_name.id_for_label}}">Прізвище:</label>
+                {{ form.last_name }}
+            </div>
+            <div class="form-group">
+                <label for="{{form.email.id_for_label}}">Email:</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="{{form.password1.id_for_label}}">Пароль:</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                <label for="{{form.password2.id_for_label}}">Повторіть пароль:</label>
+                {{ form.password2 }}
+            </div>
+            <button type="submit">Зареєструватися</button>
+        </form>
+    </div>
+
+{% endblock %}

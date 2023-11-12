@@ -1,0 +1,50 @@
+{%extends 'base.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{%block title%}{{title}} {%endblock%}
+{% block css %}
+<link rel="stylesheet" href="{%static 'css/post-detail.css'%}">
+<link rel="stylesheet" href="{%static 'css/index.css'%}">
+<link rel="stylesheet" href="{%static 'css/post.css'%}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<script src="https://kit.fontawesome.com/684898bb5f.js" crossorigin="anonymous"></script>
+{% endblock css %}
+
+
+
+{% block content %}
+
+
+<section id='summary'>
+{%if messages or form.non_fields_errors%}
+                                {%if messages%}
+                                    {%for message in messages%}
+                                        {{message}}
+                                    {%endfor%}
+                                {%else%}
+                                    {{form.non_fields_errors}}
+                                {%endif%}
+                            {%endif%}
+    <form action="{%url 'users:login'%}" method="post">
+        {% csrf_token %}
+        {{form.username|as_crispy_field}}
+        {{form.password|as_crispy_field}}
+        <button type="submit">Login</button>
+    </form>
+    
+    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+    </div>
+    
+    <p>{{text}}</p>
+
+<a href="{%url 'users:register'%}"><h4 id=h4>Dont have account? Register</h4></a>
+       
+</section>
+
+
+
+
+
+
+{% endblock content %}

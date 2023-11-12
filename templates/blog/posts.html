@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{%load static cache%}
+
+{%block title%}All my posts{%endblock%}
+{% block css %}
+<link rel="stylesheet" href="{%static 'css/all-posts.css'%}">
+<link rel="stylesheet" href="{%static 'css/post.css'%}">
+{% endblock css %}
+
+
+
+
+{% block content %} 
+
+<section id="all-posts">
+    
+<ul>
+    {% for object in object_list  %}
+    <li> 
+        <article class='post'>
+            <a href="{{object.get_absolute_url}}">
+                {% if user.is_authenticated and object.image %}
+                    <img src="{{object.image.url}}" alt="Mountain Hiking" height=100, weight=100>
+                {% else %}
+                    <img src="{%static 'img/woods.jpg'%}" alt="Mountain Hiking" height=100, weight=10>
+                {% endif %}
+                <div class="post__content">
+                    <h3>{{object.title}}</h3>
+                    {% if object.len_text %}
+                    <p>{{object.text|slice:":50"}} ...</p>
+                    {% else %}
+                    <p>{{object.text}}</p>
+                    {% endif %}
+                    
+                    
+                    
+                </div>
+            </a>
+            {%cache 60 if%}
+            {% if user.is_authenticated %}
+                {% if not object.in_list %}
+                    <p><a href="{%url 'blog:favorite' object.id%}"><button>Add to favorite list</button></a></p>
+                    {% else %}
+                    <p><a href="{%url 'blog:favorite' object.id%}"><button>Delete from favorite list</button></a></p>
+                {% endif %}
+            {% if user.is_staff %}
+                <p><a href="{%url 'blog:remove_post' object.id%}"><button>Delete this post!</button></a></p>
+            {% endif %} 
+            {% if object in user_post or user.is_staff %}
+            <p><a href="{%url 'blog:update' object.id%}"><button>Update</button></a></p>
+            {% endif %}   
+                
+            {% endif %}
+            {%endcache%}
+        </article> 
+           
+    </li>
+    {% endfor %}
+</ul> 
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+</section>
+
+<div class="row text-center">
+
+        <div class="col-lg-3">
+            <div class="list-group">
+                {%cache 120 categories%}
+                {%for category in categories%}
+                <a href="{%url 'blog:category' category.pk%}" class="list-group-item">{{category.title}}</a>
+                {%endfor%}
+                {%endcache%}
+            </div>
+
+        </div>
+
+
+{% endblock %}

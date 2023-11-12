@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <title>Create your post</title>
+</head>
+<body>
+    
+<form action="{%url 'blog:create'%}" method="post" enctype='multipart/form-data'>
+    
+        {% csrf_token %}
+        {% for object in form %}
+        <div class='form-control {% if object.errors %} error {% endif %}'>
+            {{object.label_tag}}
+            {{object}}
+            {{object.errors}}
+        </div>    
+        {% endfor %}
+        <button type='submit'>Send</button>
+ </form>
+
+   
+    

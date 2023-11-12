@@ -1,0 +1,85 @@
+{%extends 'base.html'%}
+{% load static cache%}
+
+{%block title%}{{title}} {%endblock%}
+{% block css %}
+<link rel="stylesheet" href="{%static 'css/index.css'%}">
+<link rel="stylesheet" href="{%static 'css/post.css'%}">
+{% endblock css %}
+
+
+
+
+{% block content %} 
+<style>
+
+#openweathermap-widget-18 {
+    width: 300px;
+    height: 200px;
+    margin: 0 auto; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+</style>
+
+<section id='welcome'>
+    <header>
+        
+        <img src="#" alt="Serhii - The author of this blog">
+        <h2>SERHII BLOG</h2>
+    </header>
+    <p>Hello everybody</p>
+
+    
+</section>
+
+<section id='latest-posts'>
+    <h2>My latest posts</h2>
+    
+    <ul>
+        
+        {%for object in object_list%}
+        <li> 
+           <article class='post'>
+            <a href="{% url "blog:detail" object.slug %}">
+                {% if user.is_authenticated and object.image %}
+                    <img src="{{object.image.url}}" alt="Mountain Hiking" height=100, weight=100>
+                {% else %}
+                    <img src="{%static 'img/woods.jpg'%}" alt="Mountain Hiking" height=100, weight=10>
+                {% endif %}
+                
+                <div class="post__content">
+                    <h3>{{object.title}}</h3>
+                    {% if object.len_text %}
+                    <p>{{object.text|slice:':50'}}...</p>
+                    {% else %}
+                    <p>{{object.text}}</p>
+                    {% endif %}
+                    
+                </div>
+            </a>
+           </article> 
+</li>
+{%endfor%}
+</ul>
+
+<p></p>
+    
+
+</section>
+
+<section id='about'>
+    <h2>What I do</h2>
+    <p>This inform about me</p>
+    <p>I love programming</p>
+    <div id="openweathermap-widget-14"></div>
+<div id="openweathermap-widget-18"></div>
+<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 18,cityid: '703448',appid: 'df67202e561aa89447225443fd7bfefa',units: 'metric',containerid: 'openweathermap-widget-18',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+    <a href="{% url "api:weather" %}">Want check your weather?</a>
+
+</section>
+
+{%endblock %}
+
+

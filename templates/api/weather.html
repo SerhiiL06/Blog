@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css %}
+<link rel="stylesheet" href="{%static 'css/post-detail.css'%}">
+<link rel="stylesheet" href="{%static 'css/index.css'%}">
+<link rel="stylesheet" href="{%static 'css/post.css'%}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<script src="https://kit.fontawesome.com/684898bb5f.js" crossorigin="anonymous"></script>
+
+{% endblock css %}
+
+
+
+
+
+
+{% block content %}
+<section id='summary'>
+    <form method="post">
+        {% csrf_token %}
+        {{form.city|as_crispy_field}}
+        <button>Check</button>
+    </form>
+
+     {% if messages %}
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+     {% endif %}   
+    {% if weather %}
+
+
+
+        <p>In {{city}} is {{weather.temp}} °C, {{weather.description}}</p>
+        {{error}}
+    
+    {% endif %}
+
+</section>
+
+{% endblock content %}
